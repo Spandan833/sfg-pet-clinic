@@ -15,7 +15,6 @@ import java.time.LocalDate;
 public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
-    private OwnerService ownerService1;
 
     @Autowired
     public DataLoader(OwnerService ownerService, VetService vetService) {
