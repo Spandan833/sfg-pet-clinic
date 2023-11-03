@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     @RequestMapping({"","/","index","index.html"})
     public String index(){
-        return "index"; //looks for index.html in templates folder
+        return "welcome.html"; //looks for index.html in templates folder
     }
 }
