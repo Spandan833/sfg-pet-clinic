@@ -9,4 +9,9 @@ public class IndexController {
     public String index(){
         return "welcome.html"; //looks for index.html in templates folder
     }
+
+    @RequestMapping({"/oups"})
+    public String ooops(){
+        return "notimplemented.html";
+    }
 }
