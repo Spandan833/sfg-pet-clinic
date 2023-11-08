@@ -6,7 +6,7 @@ import java.util.Set;
 public class Vet extends Person{
     private Set<Speciality> speciality = new HashSet<>();
 
-    public Set<Speciality> getSpeciality() {
+    public Set<Speciality> getSpecialities() {
         return speciality;
     }
 
