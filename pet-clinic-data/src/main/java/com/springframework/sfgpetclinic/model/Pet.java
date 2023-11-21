@@ -1,9 +1,15 @@
 package com.springframework.sfgpetclinic.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name="Pets")
 public class Pet extends BaseEntity{
     private String name;
+    @ManyToOne
+    @JoinColumn(name="pet_id")
     private PetType petType;
 
     public String getName() {
@@ -14,7 +20,10 @@ public class Pet extends BaseEntity{
         this.name = name;
     }
 
+    @ManyToOne
+    @JoinColumn(name="owner_id")
     private Owner owner;
+    @Column(name="birth_date")
     private LocalDate birthDate;
 
     public PetType getPetType() {
