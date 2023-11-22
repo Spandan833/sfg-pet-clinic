@@ -80,28 +80,31 @@ public class DataLoader implements CommandLineRunner {
         mikesPetVisit.setDate(LocalDate.now());
         mikesPetVisit = visitService.save(mikesPetVisit);
 
-
-        Owner owner2 = new Owner();
-        owner2.setFirstName("Fiona");
-        owner2.setLastName("Glenanne");
-        owner2.setAddress("8/1 Hospital Road, Muktadhara auditorium");
-        owner2.setCity("Agartala");
-        owner2.setTelephone("0123456789");
-        ownerService.save(owner2);
-
-        for(Owner owner : ownerService.findAll()){
-            System.out.println(owner.getFirstName());
+        for(Visit visit : visitService.findAll()){
+            System.out.println(visit.getDescription());
         }
+
+        Owner fiona = new Owner();
+        fiona.setFirstName("Fiona");
+        fiona.setLastName("Glenanne");
+        fiona.setAddress("8/1 Hospital Road, Muktadhara auditorium");
+        fiona.setCity("Agartala");
+        fiona.setTelephone("0123456789");
+        //ownerService.save(fiona);
+
+
         Pet fionasCat = new Pet();
 
-        fionasCat.setOwner(owner2);
+        fionasCat.setOwner(fiona);
         fionasCat.setPetType(cat);
         fionasCat.setName("Just Cat");
         fionasCat.setBirthDate(LocalDate.now());
 
-        owner2.getPets().add(fionasCat);
-        ownerService.save(owner2);
-
+        fiona.getPets().add(fionasCat);
+        ownerService.save(fiona);
+        for(Owner owner : ownerService.findAll()){
+            System.out.println(owner.getFirstName());
+        }
 
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
