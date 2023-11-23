@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -63,7 +64,8 @@ public class DataLoader implements CommandLineRunner {
         mike.setCity("Agartala");
         mike.setTelephone("0123456789");
 
-
+        Owner joy = Owner.builder().firstName("Joy").pets(new HashSet<>()).build();
+        ownerService.save(joy);
         Pet mikesPet = new Pet();
         mikesPet.setName("Mikes Pet");
         mikesPet.setPetType(dog);
