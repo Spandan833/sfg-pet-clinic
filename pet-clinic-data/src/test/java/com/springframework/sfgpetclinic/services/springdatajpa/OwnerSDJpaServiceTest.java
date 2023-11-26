@@ -66,7 +66,7 @@ class OwnerSDJpaServiceTest {
         Owner owner = ownerService.findById(1L);
 
         Assertions.assertEquals(returnOwner.getId(),owner.getId());
-        verify(ownerRepository,Mockito.times(1)).findById(eq(2L));
+        verify(ownerRepository,Mockito.times(1)).findById(eq(1L));
 
     }
 
