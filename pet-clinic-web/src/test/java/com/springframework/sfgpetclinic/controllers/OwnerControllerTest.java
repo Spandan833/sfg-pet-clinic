@@ -75,7 +75,7 @@ class OwnerControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/owners/find"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("owners/findOwners"))
-                .andExpect(model().attributeExists("owners"));
+                .andExpect(model().attributeExists("owner"));
 
         Mockito.verifyNoInteractions(ownerService);
     }
