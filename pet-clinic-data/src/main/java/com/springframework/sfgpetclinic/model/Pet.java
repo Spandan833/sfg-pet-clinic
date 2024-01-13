@@ -21,7 +21,7 @@ public class Pet extends BaseEntity{
     @JoinColumn(name="pet_id")
     private PetType petType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="owner_id")
     private Owner owner;
 
