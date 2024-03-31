@@ -1,5 +1,6 @@
 package com.springframework.sfgpetclinic.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -8,17 +9,15 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name="types")
 public class PetType extends BaseEntity{
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    @Builder
+    public PetType(Long id, String name){
+        super(id);
         this.name = name;
     }
+    @Column(name = "name")
+    private String name;
+
 }

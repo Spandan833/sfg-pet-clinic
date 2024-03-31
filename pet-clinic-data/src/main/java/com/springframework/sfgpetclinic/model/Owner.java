@@ -18,7 +18,7 @@ public class Owner extends Person{
     @Builder
     public Owner(Long id, String firstName, String lastName, Set<Pet> pets, String address, String city, String telephone) {
         super(id, firstName, lastName);
-        this.pets = pets;
+        if(pets != null) this.pets = pets;
         this.address = address;
         this.city = city;
         this.telephone = telephone;
@@ -32,5 +32,24 @@ public class Owner extends Person{
     private String city;
 
     private String telephone;
+
+    public Pet getPet(String name){
+        return this.getPet(name,false);
+    }
+
+    public Pet getPet(String name, boolean ignoreNew) {
+        name = name.toLowerCase();
+
+        for(Pet pet : pets){
+            if(!ignoreNew || !pet.isNew()){
+                String compName = pet.getName();
+                compName = compName.toLowerCase();
+                if(compName.equals((name))){
+                    return pet;
+                }
+            }
+        }
+        return null;
+    }
 }
 
