@@ -1,5 +1,6 @@
 package com.springframework.sfgpetclinic.controllers;
 
+import com.springframework.sfgpetclinic.formatters.PetTypeFormatter;
 import com.springframework.sfgpetclinic.model.Owner;
 import com.springframework.sfgpetclinic.model.Pet;
 import com.springframework.sfgpetclinic.model.PetType;
@@ -28,10 +29,13 @@ public class PetController {
     private final PetService petService;
     private final OwnerService ownerService;
     private final PetTypeService petTypeService;
-    public  PetController(PetService petService, OwnerService ownerService, PetTypeService petTypeService){
+
+    private final PetTypeFormatter petTypeFormatter;
+    public  PetController(PetService petService, OwnerService ownerService, PetTypeService petTypeService, PetTypeFormatter petTypeFormatter){
         this.petService = petService;
         this.ownerService = ownerService;
         this.petTypeService = petTypeService;
+        this.petTypeFormatter = petTypeFormatter;
     }
     @ModelAttribute("types")
     public Collection<PetType> populatePetTypes(){
@@ -52,6 +56,7 @@ public class PetController {
     public String initCreationForm(Owner owner, ModelMap model) {
         Pet pet = new Pet();
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         model.put("pet", pet);
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
@@ -63,6 +68,7 @@ public class PetController {
             result.rejectValue("name", "duplicate", "already exists");
         }
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         if (result.hasErrors()) {
             model.put("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
@@ -88,6 +94,7 @@ public class PetController {
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         }
         owner.getPets().add(pet);
+        pet.setOwner(owner);
         petService.save(pet);
         return "redirect:/owners/"+owner.getId();
     }
