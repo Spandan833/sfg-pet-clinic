@@ -10,6 +10,7 @@ import com.springframework.sfgpetclinic.services.PetService;
 import com.springframework.sfgpetclinic.services.VisitService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -60,11 +61,10 @@ public class VisitController {
     // called
     @PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
     public String processNewVisitForm(@ModelAttribute Owner owner, @PathVariable int petId, @Valid Visit visit,
-                                      BindingResult result, RedirectAttributes redirectAttributes) {
+                                      BindingResult result) {
         if (result.hasErrors()) {
             return "pets/createOrUpdateVisitForm";
         }
-
         this.visitService.save(visit);
         return "redirect:/owners/{ownerId}";
     }
