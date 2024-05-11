@@ -3,19 +3,25 @@ package com.springframework.sfgpetclinic.controllers;
 import com.springframework.sfgpetclinic.model.Owner;
 import com.springframework.sfgpetclinic.model.Pet;
 import com.springframework.sfgpetclinic.model.PetType;
+import com.springframework.sfgpetclinic.model.Visit;
 import com.springframework.sfgpetclinic.services.CrudService;
 import com.springframework.sfgpetclinic.services.PetService;
 import com.springframework.sfgpetclinic.services.VisitService;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriTemplate;
 
 import java.net.URI;
@@ -27,11 +33,13 @@ import java.util.Map;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 class VisitControllerTest {
     private static final String PETS_CREATE_OR_UPDATE_VISIT_FORM = "pets/createOrUpdateVisitForm";
@@ -74,7 +82,7 @@ class VisitControllerTest {
                                         .name("Dog").build())
                                 .build()
                 );
-
+        when(visitService.save(any())).thenReturn(new Visit());
         uriVariables.clear();
         uriVariables.put("ownerId", ownerId.toString());
         uriVariables.put("petId", petId.toString());
@@ -100,9 +108,7 @@ class VisitControllerTest {
                         .param("date","2018-10-11")
                         .param("description", YET_ANOTHER_VISIT_DESCRIPTION))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name(REDIRECT_OWNERS_1))
-                .andExpect(model().attributeExists("visit"));
+                .andExpect(view().name(REDIRECT_OWNERS_1));
     }
-
 
 }

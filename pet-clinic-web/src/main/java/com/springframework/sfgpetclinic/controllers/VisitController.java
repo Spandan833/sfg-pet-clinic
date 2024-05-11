@@ -61,11 +61,12 @@ public class VisitController {
     // called
     @PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
     public String processNewVisitForm(@ModelAttribute Owner owner, @PathVariable int petId, @Valid Visit visit,
-                                      BindingResult result) {
+                                      BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "pets/createOrUpdateVisitForm";
         }
         this.visitService.save(visit);
+        model.addAttribute("visit", visit); // Add the "visit" model attribute
         return "redirect:/owners/{ownerId}";
     }
 }
